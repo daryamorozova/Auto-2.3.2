@@ -15,6 +15,7 @@ import static io.restassured.RestAssured.given;
 @Data
 @NoArgsConstructor
 public class Generation {
+    private static Faker faker = new Faker(new Locale("en"));
 
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
             .setBaseUri("http://localhost")
@@ -35,7 +36,6 @@ public class Generation {
     }
 
     public static Registration generateNewActiveValidUser() {
-        Faker faker = new Faker(new Locale("en"));
         String login = faker.name().firstName().toLowerCase();
         String password = faker.internet().password();
         makeRegistration(new Registration(login, password, "active"));
@@ -43,7 +43,6 @@ public class Generation {
     }
 
     public static Registration generateNewBlockedUser() {
-        Faker faker = new Faker(new Locale("en"));
         String login = faker.name().firstName().toLowerCase();
         String password = faker.internet().password();
         makeRegistration(new Registration(login, password, "blocked"));
@@ -51,7 +50,6 @@ public class Generation {
     }
 
     public static Registration generateNewActiveUserInvalidLogin() {
-        Faker faker = new Faker(new Locale("en"));
         String password = faker.internet().password();
         String status = "active";
         makeRegistration(new Registration("vasiliy", password, status));
@@ -59,7 +57,6 @@ public class Generation {
     }
 
     public static Registration generateNewActiveInvalidPassword() {
-        Faker faker = new Faker(new Locale("en"));
         String login = faker.name().firstName().toLowerCase();
         String status = "active";
         makeRegistration(new Registration(login, "password", status));
